@@ -10,7 +10,7 @@ class ROM(object):
 				self.bytes.append(byte.encode("hex").upper())
 				byte = rom.read(1)
 
-		self.name = "".join(chr(int(b, 16)) for b in self.bytes[int("0x134", 16):int("0x143", 16)])
+		self.name = "".join(chr(int(b, 16)) for b in self[int("0x134", 16):int("0x143", 16)])
 
 		self.cartridge_type = {
 			0x00:"ROM ONLY",
@@ -42,7 +42,7 @@ class ROM(object):
 			0xFD:"BANDAI TAMA5",
 			0xFE:"HuC3",
 			0xFF:"HuC1+RAM+BATTERY"
-		}[self.int_val_at("0x147")]
+		}[int(self[int("0x147", 16)], 16)]
 
 		self.rom_size = {
 			0x00:"32 KB (no ROM banking)",
@@ -56,21 +56,17 @@ class ROM(object):
 			0x52:"1.1 MB (72 banks)",
 			0x53:"1.2 MB (80 banks)",
 			0x54:"1.5 MB (96 banks)"
-		}[self.int_val_at("0x148")]
+		}[int(self[int("0x148", 16)], 16)]
 
 		self.ram_size = {
 			0x00:"None",
 			0x01:"2 KB",
 			0x02:"8 KB",
 			0x03:"32 KB"
-		}[self.int_val_at("0x149")]
+		}[int(self[int("0x149", 16)], 16)]
 
-		self.japanese = str(not bool(self.int_val_at("0x14A")))
+		self.japanese = str(not bool(int(self[int("0x14A", 16)], 16)))
 
 
 	def __getitem__(self, index):
 		return self.bytes[index]
-
-
-	def int_val_at(self, hex_address_str):
-		return int(self[int(hex_address_str, 16)])
