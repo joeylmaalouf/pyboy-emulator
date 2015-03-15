@@ -67,6 +67,5 @@ class ROM(object):
 
 		self.japanese = str(not bool(int(self[int("0x14A", 16)], 16)))
 
-
 	def __getitem__(self, index):
 		return self.bytes[index]
