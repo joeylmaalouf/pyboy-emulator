@@ -3,7 +3,7 @@ class CPU(object):
 		internal CPU, a custom Zilog Z80.
 	"""
 	def __init__(self, rom):
-		self.memory = rom
+		self.game_rom = rom
 
 		self.clocks = {"m":0, "t":0}
 

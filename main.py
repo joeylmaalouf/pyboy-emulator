@@ -14,13 +14,15 @@ def main(argv):
 	if len(argv) < 2:
 		print("Error: please provide a path to the ROM.")
 	else:
-		game = CPU(ROM(argv[1]))
-		print("ROM \""+argv[1]+"\" loaded successfully!")
-		print("Internal game name:  "+game.memory.name)
-		print("Cartridge type:      "+game.memory.cartridge_type)
-		print("ROM size:            "+game.memory.rom_size)
-		print("RAM size:            "+game.memory.ram_size)
-		print("Made only for Japan: "+game.memory.japanese)
+		game_rom = ROM(argv[1])
+		game_cpu = CPU(game_rom)
+		print("\nROM \""+argv[1]+"\" loaded successfully!\n")
+		print("Internal game name:  "+game_rom.name)
+		print("Cartridge type:      "+game_rom.cartridge_type)
+		print("ROM size:            "+game_rom.rom_size)
+		print("RAM size:            "+game_rom.ram_size)
+		print("Made only for Japan: "+game_rom.japanese)
+		print("")
 
 
 if __name__ == "__main__":
