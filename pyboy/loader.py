@@ -42,7 +42,7 @@ class ROM(object):
 			0xFD:"BANDAI TAMA5",
 			0xFE:"HuC3",
 			0xFF:"HuC1+RAM+BATTERY"
-		}[int(self[int("0x147", 16)], 16)]
+		}[int(self["0x147"], 16)]
 
 		self.rom_size = {
 			0x00:"32 KB (no ROM banking)",
@@ -56,16 +56,19 @@ class ROM(object):
 			0x52:"1.1 MB (72 banks)",
 			0x53:"1.2 MB (80 banks)",
 			0x54:"1.5 MB (96 banks)"
-		}[int(self[int("0x148", 16)], 16)]
+		}[int(self["0x148"], 16)]
 
 		self.ram_size = {
 			0x00:"None",
 			0x01:"2 KB",
 			0x02:"8 KB",
 			0x03:"32 KB"
-		}[int(self[int("0x149", 16)], 16)]
+		}[int(self["0x149"], 16)]
 
-		self.japanese = str(not bool(int(self[int("0x14A", 16)], 16)))
+		self.japanese = str(not bool(int(self["0x14A"], 16)))
 
 	def __getitem__(self, index):
-		return self.bytes[index]
+		if type(index) == type(""):
+			return self.bytes[int(index, 16)]
+		else:
+			return self.bytes[index]
